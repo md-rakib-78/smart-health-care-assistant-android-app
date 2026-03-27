@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Smart Health Care Assistant App</string>
+    <string name="health_care_n_assistant">Health Care\n Assistant</string>
+    <string name="your_personal_health_companion_n_stay_on_track_stay_healthy">Your personal health companion \n Stay on track, stay healthy.</string>
+    <string name="get_started">Get Started</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_in">Sign in</string>
 </resources>
