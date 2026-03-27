@@ -1,14 +1,10 @@
 package com.example.smarthealthcareassistantapp;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Window;
+import android.view.WindowInsetsController;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,9 +14,10 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Window window = getWindow();
-        window.setStatusBarColor(Color.BLACK);
-
-
+        // Status Bar Icon, Text, Color
+        WindowInsetsController controller = getWindow().getInsetsController();
+        if (controller != null) {
+            controller.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+        }
     }
 }
