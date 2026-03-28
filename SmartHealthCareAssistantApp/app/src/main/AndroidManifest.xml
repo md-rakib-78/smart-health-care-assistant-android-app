@@ -12,9 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHealthCareAssistantApp">
         <activity
+            android:name=".register_activity"
+            android:exported="false" />
+        <activity
+            android:name=".login_activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.SmartHealthCareAssistantApp"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SmartHealthCareAssistantApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

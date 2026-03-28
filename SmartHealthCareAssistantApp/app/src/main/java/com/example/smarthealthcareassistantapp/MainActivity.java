@@ -1,12 +1,16 @@
 package com.example.smarthealthcareassistantapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowInsetsController;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button getS,signIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,5 +23,22 @@ public class MainActivity extends AppCompatActivity {
         if (controller != null) {
             controller.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
         }
+
+        // Buttons
+        getS = (Button) findViewById(R.id.getStartedButton);
+        signIn = (Button) findViewById(R.id.signInButton);
+
+        // On Click Listener
+        getS.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, register_activity.class));
+            finish();
+        });
+
+        signIn.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, login_activity.class));
+            finish();
+        });
     }
+
+
 }
