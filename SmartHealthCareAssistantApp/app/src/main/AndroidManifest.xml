@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHealthCareAssistantApp">
         <activity
+            android:name=".home_dashboard_activity"
+            android:exported="false" />
+        <activity
             android:name=".register_activity"
             android:exported="false" />
         <activity

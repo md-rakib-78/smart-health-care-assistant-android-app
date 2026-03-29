@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Buttons
-        getS = (Button) findViewById(R.id.getStartedButton);
-        signIn = (Button) findViewById(R.id.signInButton);
+        getS = findViewById(R.id.getStartedButton);
+        signIn = findViewById(R.id.signInButton);
 
         // On Click Listener
         getS.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, register_activity.class));
+            startActivity(new Intent(MainActivity.this, home_dashboard_activity.class));
             finish();
         });
 
