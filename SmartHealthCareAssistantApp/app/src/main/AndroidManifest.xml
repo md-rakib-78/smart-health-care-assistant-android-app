@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHealthCareAssistantApp">
         <activity
+            android:name=".profile_activity"
+            android:exported="false" />
+        <activity
             android:name=".home_dashboard_activity"
             android:exported="false" />
         <activity
             android:name=".register_activity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".login_activity"

@@ -2,6 +2,7 @@ package com.example.smarthealthcareassistantapp;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -77,6 +78,7 @@ public class register_activity extends AppCompatActivity {
         );
         blood.setAdapter(adapter1);
         blood.setOnClickListener(v -> blood.showDropDown());
+
 
 
     }

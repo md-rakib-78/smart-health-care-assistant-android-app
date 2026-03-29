@@ -30,13 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         // On Click Listener
         getS.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, home_dashboard_activity.class));
-            finish();
+            startActivity(new Intent(MainActivity.this, login_activity.class));
+
         });
 
         signIn.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, login_activity.class));
-            finish();
         });
     }
 

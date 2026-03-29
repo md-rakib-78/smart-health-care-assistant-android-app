@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,11 +36,12 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/user_box"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -48,6 +49,8 @@
             android:layout_height="50dp"
             android:src="@drawable/user1"
             android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:padding="2dp"
             android:contentDescription="user"/>
     </LinearLayout>
 
@@ -111,7 +114,7 @@
                 android:orientation="vertical"
                 android:padding="5dp"
                 android:layout_marginRight="7dp"
-                android:alpha="0.7"
+
                 android:background="@drawable/box_second">
 
                 <TextView
@@ -120,7 +123,7 @@
                     android:text="98°"
                     android:textStyle="bold"
                     android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textColor="#000000"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -138,7 +141,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:alpha="0.7"
                 android:padding="5dp"
                 android:layout_marginRight="7dp"
                 android:background="@drawable/box_second">
@@ -170,7 +172,6 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="5dp"
-                android:alpha="0.7"
                 android:background="@drawable/box_second">
 
                 <TextView
@@ -196,7 +197,7 @@
     
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout1"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="10dp"
@@ -255,8 +256,8 @@
                 android:background="@drawable/strock_box">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_margin="2dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/calender"/>
@@ -347,10 +348,174 @@
                         android:textStyle="normal"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:text="Today's Reminders"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/strock_box">
+
+                    <TextView
+                        android:id="@+id/med1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paracetamol 500mg"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/med1"
+                        android:text="8:00 AM"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/med1"
+                        android:text="8:00 AM"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="Done"
+                        android:textColor="#2E7D32"
+                        android:textSize="14sp"
+                        android:background="@drawable/bg_done"
+                        android:gravity="center"/>
+                </RelativeLayout>
+
+
         </LinearLayout>
+
     </ScrollView>
-    
-    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/menu_bg">
+
+        <LinearLayout
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/home_sec"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="13sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/meds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/medicine"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meds"
+                android:textSize="13sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/calender"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Schedule"
+                android:textSize="13sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/profile"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="13sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
     
 
 </androidx.constraintlayout.widget.ConstraintLayout>

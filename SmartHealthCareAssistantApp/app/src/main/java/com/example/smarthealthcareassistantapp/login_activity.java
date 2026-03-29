@@ -26,6 +26,13 @@ public class login_activity extends AppCompatActivity {
             startActivity(new Intent(login_activity.this, register_activity.class));
         });
 
+        login = findViewById(R.id.signIn);
+
+        login.setOnClickListener(v -> {
+            startActivity(new Intent(login_activity.this, home_dashboard_activity.class));
+        });
+
+
 
     }
 }
