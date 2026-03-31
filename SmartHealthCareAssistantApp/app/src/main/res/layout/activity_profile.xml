@@ -59,17 +59,23 @@
             android:textSize="15sp"
             android:textAlignment="center" />
 
-        <Button
+        <LinearLayout
             android:id="@+id/editP"
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:padding="0dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"
-            android:textSize="15sp"
-            android:backgroundTint="@color/white"/>
+            android:padding="5dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/edit_profile"/>
+        </LinearLayout>
+
 
     </RelativeLayout>
 

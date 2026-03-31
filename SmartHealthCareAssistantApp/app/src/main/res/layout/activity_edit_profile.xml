@@ -25,17 +25,33 @@
                 android:id="@+id/logo"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:alpha="0.9"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/user_box_sec">
+                android:background="@drawable/user_box_sec_two">
 
-                <ImageView
-                    android:id="@+id/profilePic"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="8dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/user" />
+                    android:layout_height="match_parent">
+
+                    <!-- Profile Image -->
+                    <ImageView
+                        android:id="@+id/profilePic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0.5"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/user"
+                        android:background="@drawable/user_box_sec_two"
+                        android:clipToOutline="true"/>
+
+                    <!-- Edit Icon -->
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:src="@drawable/edit_profile_pic" />
+
+                </FrameLayout>
             </LinearLayout>
 
             <TextView
@@ -170,79 +186,77 @@
                 android:textSize="15sp"
                 android:inputType="none"/>
 
-
-
-
-
-
-
-
-                <TextView
-                    android:id="@+id/weightText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_below="@+id/blood"
-                    android:text="Weight"
-                    android:textColor="#595959"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-
-            <TextView
-                android:id="@+id/heightText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignEnd="@+id/blood"
-                android:layout_below="@+id/blood"
-                android:text="Height"
-                android:textColor="#595959"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-
-
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:layout_below="@id/weightText"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_below="@+id/blood">
 
-                <EditText
-                    android:id="@+id/weight"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minHeight="48dp"
-                    android:padding="12dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/edit_text_box"
-                    android:hint="kg"
-                    android:textSize="15sp"
-                    android:inputType="number"/>
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/height"
+                    <TextView
+                        android:id="@+id/weightText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Weight"
+                        android:textColor="#595959"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/edit_text_box"
+                        android:hint="kg"
+                        android:textSize="15sp"
+                        android:inputType="number"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:padding="12dp"
-                    android:background="@drawable/edit_text_box"
-                    android:hint="cm"
-                    android:inputType="number"
-                    android:textSize="15sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/heightText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Height"
+                        android:textColor="#595959"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_box"
+                        android:hint="cm"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/emailText"

@@ -3,6 +3,7 @@ package com.example.smarthealthcareassistantapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class profile_activity extends AppCompatActivity {
 
-    Button edit;
+    LinearLayout edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class profile_activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
 
-        edit = (Button) findViewById(R.id.editP);
+        edit = findViewById(R.id.editP);
 
         edit.setOnClickListener(v->{
 
