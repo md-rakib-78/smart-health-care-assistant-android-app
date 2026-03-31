@@ -6,9 +6,6 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class login_activity extends AppCompatActivity {
 
@@ -23,7 +20,7 @@ public class login_activity extends AppCompatActivity {
         //Sign Up button to access register activity
         signUp = (Button) findViewById(R.id.signUp);
         signUp.setOnClickListener(v -> {
-            startActivity(new Intent(login_activity.this, register_activity.class));
+            startActivity(new Intent(login_activity.this, sign_up_Activity.class));
         });
 
         login = findViewById(R.id.signIn);

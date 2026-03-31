@@ -2,20 +2,16 @@ package com.example.smarthealthcareassistantapp;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Calendar;
 
-public class register_activity extends AppCompatActivity {
+public class edit_profile_activity extends AppCompatActivity {
 
     EditText dateOfBirth;
     AutoCompleteTextView gender,blood;
@@ -24,7 +20,7 @@ public class register_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_edit_profile);
 
         // Date of Birth selection from calender
         dateOfBirth = findViewById(R.id.dateOfBirth);

@@ -11,7 +11,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/splash_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,8 +112,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
-        android:paddingStart="2dp"
+        android:paddingStart="0dp"
         android:text="@string/sign_in"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="16sp" />
     </LinearLayout>

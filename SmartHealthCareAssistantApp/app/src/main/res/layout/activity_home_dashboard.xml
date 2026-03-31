@@ -35,7 +35,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/profileIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -492,7 +492,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/profile"
+            android:id="@+id/profileIcon2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
