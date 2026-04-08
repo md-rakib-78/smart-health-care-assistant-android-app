@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class home_dashboard_activity extends AppCompatActivity {
 
-    LinearLayout profileicon1,profileicon2;
+    LinearLayout profileicon1,profileicon2,my_medicines1,my_medicines2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +27,28 @@ public class home_dashboard_activity extends AppCompatActivity {
 
         profileicon1 = findViewById(R.id.profileIcon);
         profileicon2 = findViewById(R.id.profileIcon2);
+        my_medicines1 = findViewById(R.id.med11);
+        my_medicines2 = findViewById(R.id.med12);
 
+
+        //------------------------------------------ Button Action Section ---------------
         profileicon1.setOnClickListener(v->{
-
             startActivity(new Intent(home_dashboard_activity.this, profile_activity.class));
-
         });
 
         profileicon2.setOnClickListener(v->{
             startActivity(new Intent(home_dashboard_activity.this, profile_activity.class));
         });
+
+        my_medicines1.setOnClickListener(v->{
+            startActivity(new Intent(home_dashboard_activity.this, my_medicines.class));
+        });
+
+        my_medicines2.setOnClickListener(v->{
+            startActivity(new Intent(home_dashboard_activity.this, my_medicines.class));
+        });
+
+
 
     }
 }
