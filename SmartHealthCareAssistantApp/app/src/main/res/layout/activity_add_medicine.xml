@@ -286,8 +286,7 @@
             android:background="@drawable/edit_text_box"
             android:hint="e.g. Take after meal"
             android:textSize="15sp"
-            android:focusable="false"
-            android:clickable="true"/>
+            android:inputType="none"/>
     </LinearLayout>
 
     <Button

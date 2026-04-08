@@ -15,7 +15,8 @@
         android:theme="@style/Theme.SmartHealthCareAssistantApp">
         <activity
             android:name=".add_medicine"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".my_medicines"
             android:exported="false" />
