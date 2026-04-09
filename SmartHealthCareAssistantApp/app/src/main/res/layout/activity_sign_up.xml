@@ -170,7 +170,7 @@
         android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/signIn"
+            android:id="@+id/signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"

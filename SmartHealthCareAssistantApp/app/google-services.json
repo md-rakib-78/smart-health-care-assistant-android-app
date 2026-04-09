@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750083431050",
+    "project_id": "smart-health-care-assistant",
+    "storage_bucket": "smart-health-care-assistant.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750083431050:android:9f17683d1889f39d1e6b73",
+        "android_client_info": {
+          "package_name": "com.example.smarthealthcareassistantapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApIyjNo_bzeRZAK1axaA_ULx56nVTJXRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
