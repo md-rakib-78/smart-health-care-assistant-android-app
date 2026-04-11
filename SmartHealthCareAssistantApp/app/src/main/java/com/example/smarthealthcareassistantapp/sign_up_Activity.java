@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import database.AppDatabase;
+
 public class sign_up_Activity extends AppCompatActivity {
 
     private EditText fullName,email,password,Cpassword;
@@ -82,10 +84,25 @@ public class sign_up_Activity extends AppCompatActivity {
                 return;
             }
 
+            // Call Firebase
             auth.createUserWithEmailAndPassword(mail, pass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(sign_up_Activity.this, "Registration Successful", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(this, login_activity.class));
+
+                    //Insert data into room database
+                    AppDatabase db = AppDatabase.getDatabase(this);
+                    String Fname = fullName.getText().toString();
+                    String Mail = email.getText().toString();
+                    String Pass = password.getText().toString();
+
+                    database.User user = new database.User();
+                    user.name = Fname;
+                    user.email = Mail;
+                    user.password = Pass;
+
+                    db.userDao().insert(user);
+
                     finish();
 
                 }else{
@@ -101,6 +118,10 @@ public class sign_up_Activity extends AppCompatActivity {
                 }
 
             });
+
+
+
+
 
         });
 

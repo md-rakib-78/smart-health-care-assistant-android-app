@@ -2,11 +2,16 @@ package com.example.smarthealthcareassistantapp;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import database.*;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +24,18 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.Calendar;
 
+import database.AppDatabase;
+import database.Medicine;
+
 public class add_medicine extends AppCompatActivity {
 
-    EditText StartDate,EndDate;
+    EditText StartDate,EndDate,medname;
     ChipGroup chipGroup;
     Chip addTimeChip;
     TextView arrow;
     AutoCompleteTextView freq;
+    Button save;
+    public String getTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +44,112 @@ public class add_medicine extends AppCompatActivity {
         setContentView(R.layout.activity_add_medicine);
 
         arrow = findViewById(R.id.arrow);
+        save = findViewById(R.id.saveB);
+        medname = findViewById(R.id.medname);
 
+
+        //Insert value into room database
+        save.setOnClickListener(v->{
+
+            String PN = medname.getText().toString();
+            String SD = StartDate.getText().toString();
+            String ED = EndDate.getText().toString();
+            String F = freq.getText().toString();
+            String T = getTime;
+
+            int year,year2,month,month2;
+
+
+
+            //text field condition
+            if (PN.isEmpty()) {
+                medname.setError("Medicine name is required");
+                medname.requestFocus();
+                return;
+            }
+
+            if(F.isEmpty()) {
+                freq.setError("Frequency is required");
+                freq.requestFocus();
+                return;
+            }
+
+            if(SD.isEmpty()) {
+                Toast.makeText(this, "Start date is required", Toast.LENGTH_SHORT).show();
+                StartDate.setError("");
+                StartDate.requestFocus();
+                return;
+            }else
+            {
+                String[] date = SD.split("/");
+                month = Integer.parseInt(date[1]);
+                year = Integer.parseInt(date[2]);
+
+            }
+
+            if(ED.isEmpty()) {
+                Toast.makeText(this, "End date is required", Toast.LENGTH_SHORT).show();
+                EndDate.setError("");
+                EndDate.requestFocus();
+                return;
+            }else
+            {
+                String[] date2 = ED.split("/");
+                month2 = Integer.parseInt(date2[1]);
+                year2 = Integer.parseInt(date2[2]);
+            }
+
+            if(year > year2) {
+                Toast.makeText(this, "End year should be greater than start year", Toast.LENGTH_SHORT).show();
+                EndDate.setError("");
+                EndDate.requestFocus();
+                return;
+            }
+
+            if(year == year2 && month > month2)
+            {
+                Toast.makeText(this, "End month should be greater than start month", Toast.LENGTH_SHORT).show();
+                EndDate.setError("");
+                EndDate.requestFocus();
+                return;
+            }
+
+
+            if(chipGroup.getChildCount() <= 1) {
+                addTimeChip.setError("");
+                Toast.makeText(this, "Please select time", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+
+            // Room database insert value
+            AppDatabase db = AppDatabase.getDatabase(this);
+
+            String Mname = medname.getText().toString();
+            String start = StartDate.getText().toString();
+            String end = EndDate.getText().toString();
+            String frequency = freq.getText().toString();
+            String times = getTime; // your chip method
+
+            Medicine medicine = new Medicine();
+            medicine.MedicineName = Mname;
+            medicine.startDate = start;
+            medicine.endDate = end;
+            medicine.frequency = frequency;
+            medicine.times = times;
+
+            db.medicineDao().insert(medicine);
+
+            Toast.makeText(this, "Medicine Added", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(add_medicine.this, home_dashboard_activity.class));
+            finish();
+        });
+
+
+
+
+        // Back Button
         arrow.setOnClickListener(v -> finish());
 
 
@@ -91,6 +206,10 @@ public class add_medicine extends AppCompatActivity {
         freq.setOnClickListener(v -> freq.showDropDown());
     }
 
+
+
+
+
     private void openTimePicker() {
         Calendar calendar = Calendar.getInstance();
 
@@ -117,6 +236,7 @@ public class add_medicine extends AppCompatActivity {
 
     private void addChip(String time) {
 
+        getTime = time;
         Chip chip = new Chip(this);
         chip.setText(time);
 

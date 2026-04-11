@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // On Click Listener
         getS.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, sign_up_Activity.class));
+            startActivity(new Intent(MainActivity.this, home_dashboard_activity.class));
 
         });
 

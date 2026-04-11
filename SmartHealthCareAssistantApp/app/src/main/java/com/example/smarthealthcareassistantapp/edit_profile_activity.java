@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ public class edit_profile_activity extends AppCompatActivity {
     AutoCompleteTextView gender,blood;
     ImageView profilePic;
     LinearLayout profileButton;
+    Button save;
 
     ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -44,12 +46,19 @@ public class edit_profile_activity extends AppCompatActivity {
         //Profile image upload
         profilePic = findViewById(R.id.profilePic);
         profileButton = findViewById(R.id.logo);
+        save = findViewById(R.id.saveEdit);
 
+
+        //Profile image upload button
         profileButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             galleryLauncher.launch(intent);
         });
+
+
+        //Work next day
+
 
 
 
