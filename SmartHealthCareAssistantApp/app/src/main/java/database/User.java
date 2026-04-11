@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "user_info")
 public class User {
 
+    @PrimaryKey(autoGenerate = true)
+    int id;
+
     public String name;
     public String image;
     public String dateOfBirth;
@@ -13,7 +16,6 @@ public class User {
     public String blood;
     public String weight;
     public String height;
-    @PrimaryKey()
     public String email;
     public String password;
 }

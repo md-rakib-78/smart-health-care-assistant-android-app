@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.format.Time;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -29,7 +30,6 @@ import java.util.List;
 
 import database.AppDatabase;
 import database.Medicine;
-import database.User;
 
 public class home_dashboard_activity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class home_dashboard_activity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RelativeLayout emptyImg;
-    TextView emptyText,nameText;
+    TextView emptyText;
     HashMap<String, String> hashMap;
     ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
 
@@ -48,18 +48,14 @@ public class home_dashboard_activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_dashboard);
 
+
+
         profileicon1 = findViewById(R.id.profileIcon);
         profileicon2 = findViewById(R.id.profileIcon2);
         my_medicines1 = findViewById(R.id.med11);
         my_medicines2 = findViewById(R.id.med12);
         recyclerView = findViewById(R.id.recyclerViewMed);
         emptyImg = findViewById(R.id.emptyImage);
-        nameText = findViewById(R.id.nameText);
-
-        //Read user table From Room Database
-        AppDatabase db = AppDatabase.getDatabase(this);
-        List<User> list = db.userDao().getAllUsers();
-        nameText.setText(list.get(0).name+"\uD83D\uDC4B");
 
 
 
@@ -81,21 +77,30 @@ public class home_dashboard_activity extends AppCompatActivity {
         });
 
 
-        createArrayList();
-
-        //Set Recycle View
-        recyclerView.setAdapter(new MedicineAdapter());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        if(arrayList.size() == 0){
-            recyclerView.setVisibility(View.GONE);
-            emptyImg.setVisibility(View.VISIBLE);
 
 
-        }else{
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyImg.setVisibility(View.GONE);
-        }
+
+        new Thread(() -> {
+
+            createArrayList(); // load data in background
+
+            runOnUiThread(() -> {
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(new MedicineAdapter());
+
+                if(arrayList.size() == 0){
+                    recyclerView.setVisibility(View.GONE);
+                    emptyImg.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyImg.setVisibility(View.GONE);
+                }
+
+            });
+
+        }).start();
+
 
 
 
@@ -114,16 +119,21 @@ public class home_dashboard_activity extends AppCompatActivity {
 
     private void createArrayList() {
 
-        //Read Medicine table From Room Database
+        arrayList.clear();
+
         AppDatabase db = AppDatabase.getDatabase(this);
 
         List<Medicine> list = db.medicineDao().getAllMedicines();
+
 
         for (Medicine m : list) {
             hashMapMedAdd(m.MedicineName, m.times, m.frequency);
         }
 
+        //hashMapMedAdd("Paracitamol 00mg", "Time", "Status");
     }
+
+
 
     // Adapter For Medicine Recycle View
     private class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder>{
@@ -152,6 +162,7 @@ public class home_dashboard_activity extends AppCompatActivity {
             }
 
         }
+
 
 
         @Override
