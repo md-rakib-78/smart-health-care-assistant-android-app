@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:background="@drawable/strock_box">
+
+        <TextView
+            android:id="@+id/titleMed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medicine name 00mg"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/titleMed"
+            app:singleLine="false"
+            app:chipSpacing="8dp">
+
+            <!-- Add Time Chip -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/addTimeChip"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="2:00 AM"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                app:chipBackgroundColor="@android:color/transparent"
+                app:textStyle="bold"
+                app:chipStrokeColor="@color/gray"
+                app:chipStrokeWidth="1dp"/>
+        </com.google.android.material.chip.ChipGroup>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_below="@+id/chipGroupTime"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:max="3"
+            android:progress="2"
+            android:progressTint="@color/black"
+            android:backgroundTint="@color/gray"/>
+
+        <TextView
+            android:id="@+id/percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="75%"
+            android:layout_below="@+id/progressBar"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:textSize="15sp"
+            />
+
+
+        <TextView
+            android:id="@+id/statusMed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Active"
+            android:layout_marginTop="2dp"
+            android:textColor="#2E7D32"
+            android:textSize="14sp"
+            android:background="@drawable/bg_done"/>
+
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_below="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="2 of 3 taken"
+            android:textSize="16sp"
+            android:textStyle="normal"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
