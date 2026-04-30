@@ -4,253 +4,217 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import database.*;
 
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import database.AppDatabase;
-import database.Medicine;
+import database.*;
 
 public class add_medicine extends AppCompatActivity {
 
-    EditText StartDate,EndDate,medname;
+    EditText StartDate, EndDate, medname;
     ChipGroup chipGroup;
     Chip addTimeChip;
-    TextView arrow;
     AutoCompleteTextView freq;
     Button save;
-    public String getTime;
+    TextView arrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_medicine);
 
-        arrow = findViewById(R.id.arrow);
-        save = findViewById(R.id.saveB);
+        // init views
         medname = findViewById(R.id.medname);
+        StartDate = findViewById(R.id.startdate);
+        EndDate = findViewById(R.id.enddate);
+        chipGroup = findViewById(R.id.chipGroupTime);
+        addTimeChip = findViewById(R.id.addTimeChip);
+        freq = findViewById(R.id.freq);
+        save = findViewById(R.id.saveB);
+        arrow = findViewById(R.id.arrow);
 
+        // frequency dropdown
+        String[] daily = {"1x daily", "2x daily", "3x daily", "4x daily", "5x daily"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, daily);
+        freq.setAdapter(adapter);
+        
+        // Show dropdown on click
+        freq.setOnClickListener(v -> freq.showDropDown());
 
-        //Insert value into room database
-        save.setOnClickListener(v->{
+        // add time chip
+        addTimeChip.setOnClickListener(v -> openTimePicker());
 
-            String PN = medname.getText().toString();
-            String SD = StartDate.getText().toString();
-            String ED = EndDate.getText().toString();
-            String F = freq.getText().toString();
-            String T = getTime;
+        // date pickers
+        StartDate.setOnClickListener(v -> showDatePicker(StartDate));
+        EndDate.setOnClickListener(v -> showDatePicker(EndDate));
 
-            int year,year2,month,month2;
+        // back button
+        arrow.setOnClickListener(v -> finish());
+        
+        // SAVE BUTTON
+        save.setOnClickListener(v -> saveMedicine());
+    }
 
+    // ================= SAVE MEDICINE =================
+    private void saveMedicine() {
 
+        String name = medname.getText().toString().trim();
+        String start = StartDate.getText().toString().trim();
+        String end = EndDate.getText().toString().trim();
+        String frequency = freq.getText().toString().trim();
 
-            //text field condition
-            if (PN.isEmpty()) {
-                medname.setError("Medicine name is required");
-                medname.requestFocus();
-                return;
-            }
+        // validation
+        if (name.isEmpty()) {
+            medname.setError("Required");
+            return;
+        }
 
-            if(F.isEmpty()) {
-                freq.setError("Frequency is required");
-                freq.requestFocus();
-                return;
-            }
+        if (start.isEmpty() || end.isEmpty()) {
+            Toast.makeText(this, "Select dates", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            if(SD.isEmpty()) {
-                Toast.makeText(this, "Start date is required", Toast.LENGTH_SHORT).show();
-                StartDate.setError("");
-                StartDate.requestFocus();
-                return;
-            }else
-            {
-                String[] date = SD.split("/");
-                month = Integer.parseInt(date[1]);
-                year = Integer.parseInt(date[2]);
+        List<String> times = getAllTimesFromChips();
 
-            }
+        if (times.isEmpty()) {
+            Toast.makeText(this, "Select at least one time", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            if(ED.isEmpty()) {
-                Toast.makeText(this, "End date is required", Toast.LENGTH_SHORT).show();
-                EndDate.setError("");
-                EndDate.requestFocus();
-                return;
-            }else
-            {
-                String[] date2 = ED.split("/");
-                month2 = Integer.parseInt(date2[1]);
-                year2 = Integer.parseInt(date2[2]);
-            }
+        save.setEnabled(false);
 
-            if(year > year2) {
-                Toast.makeText(this, "End year should be greater than start year", Toast.LENGTH_SHORT).show();
-                EndDate.setError("");
-                EndDate.requestFocus();
-                return;
-            }
-
-            if(year == year2 && month > month2)
-            {
-                Toast.makeText(this, "End month should be greater than start month", Toast.LENGTH_SHORT).show();
-                EndDate.setError("");
-                EndDate.requestFocus();
-                return;
-            }
-
-
-            if(chipGroup.getChildCount() <= 1) {
-                addTimeChip.setError("");
-                Toast.makeText(this, "Please select time", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-
-            // Room database insert value
+        // DB - Run in background thread
+        new Thread(() -> {
             AppDatabase db = AppDatabase.getDatabase(this);
 
-            String Mname = medname.getText().toString();
-            String start = StartDate.getText().toString();
-            String end = EndDate.getText().toString();
-            String frequency = freq.getText().toString();
-            String times = getTime; // your chip method
-
+            // 1. insert medicine
             Medicine medicine = new Medicine();
-            medicine.MedicineName = Mname;
+            medicine.MedicineName = name;
             medicine.startDate = start;
             medicine.endDate = end;
             medicine.frequency = frequency;
-            medicine.times = times;
 
-            db.medicineDao().insert(medicine);
+            long medicineId = db.medicineDao().insert(medicine);
 
-            Toast.makeText(this, "Medicine Added", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(add_medicine.this, home_dashboard_activity.class));
-            finish();
-        });
+            // 2. insert times + alarms
+            List<MedicineTime> timeList = new ArrayList<>();
 
+            for (int i = 0; i < times.size(); i++) {
 
+                String time = times.get(i);
 
+                // Use a larger multiplier to avoid alarm ID collisions between different medicines
+                int alarmId = (int) (medicineId * 100) + i;
 
-        // Back Button
-        arrow.setOnClickListener(v -> finish());
+                MedicineTime mt = new MedicineTime((int) medicineId, time, alarmId);
+                timeList.add(mt);
 
+                // set alarm
+                AlarmHelper.setAlarm(this, alarmId, time, name);
+            }
 
-        // Start Date selection from Calender
-        StartDate = findViewById(R.id.startdate);
-        StartDate.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            db.medicineDao().insertTimes(timeList);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-                        String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                        StartDate.setText(date);
-                    },
-                    year, month, day
-            );
-            datePickerDialog.show();
-        });
-
-        // End Date selection from Calender
-        EndDate = findViewById(R.id.enddate);
-        EndDate.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-                        String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                        EndDate.setText(date);
-                    },
-                    year, month, day
-            );
-            datePickerDialog.show();
-        });
-
-        // Chip group
-        chipGroup = findViewById(R.id.chipGroupTime);
-        addTimeChip = findViewById(R.id.addTimeChip);
-        addTimeChip.setOnClickListener(v -> openTimePicker());
-
-        // Gender dropdown selection
-        freq = findViewById(R.id.freq);
-
-        String[] daily = {"1x daily", "2x daily", "3x daily", "4x daily", "5x daily", "6x daily", "7x daily"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,daily);
-        freq.setAdapter(adapter);
-        freq.setOnClickListener(v -> freq.showDropDown());
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Medicine Saved", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, home_dashboard_activity.class));
+                finish();
+            });
+        }).start();
     }
 
+    // ================= GET ALL CHIP TIMES =================
+    private List<String> getAllTimesFromChips() {
 
+        List<String> list = new ArrayList<>();
 
+        for (int i = 0; i < chipGroup.getChildCount(); i++) {
 
+            View v = chipGroup.getChildAt(i);
 
+            if (v instanceof Chip) {
+                Chip chip = (Chip) v;
+                // Avoid adding the static "Add Time" chip text to the medicine times
+                if (chip != addTimeChip) {
+                    list.add(chip.getText().toString());
+                }
+            }
+        }
+
+        return list;
+    }
+
+    // ================= TIME PICKER =================
     private void openTimePicker() {
+
         Calendar calendar = Calendar.getInstance();
 
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-
         TimePickerDialog dialog = new TimePickerDialog(this,
-                (view, hourOfDay, minute1) -> {
+                (view, hourOfDay, minute) -> {
 
-                    String time = formatTime(hourOfDay, minute1);
+                    String time = format12Hour(hourOfDay, minute);
                     addChip(time);
 
-                }, hour, minute, false);
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                false // IMPORTANT: false = 12-hour mode
+        );
 
         dialog.show();
     }
 
-    private String formatTime(int hour, int minute) {
-        String amPm = (hour >= 12) ? "PM" : "AM";
-        hour = (hour == 0) ? 12 : hour % 12;
+    private String format12Hour(int hour, int minute) {
 
-        return String.format("%02d:%02d %s", hour, minute, amPm);
+        String amPm = (hour >= 12) ? "PM" : "AM";
+
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return String.format("%02d:%02d %s", hour12, minute, amPm);
     }
 
+    // ================= ADD CHIP =================
     private void addChip(String time) {
 
-        getTime = time;
         Chip chip = new Chip(this);
         chip.setText(time);
-
-        chip.setChipBackgroundColorResource(R.color.light_green);
-        chip.setTextColor(getResources().getColor(R.color.green));
-
-        chip.setChipStrokeWidth(1f);
-        chip.setChipStrokeColorResource(R.color.green);
-
         chip.setCloseIconVisible(true);
+
         chip.setOnCloseIconClickListener(v -> chipGroup.removeView(chip));
 
-        // Add before "+ Add time"
-        int index = chipGroup.indexOfChild(addTimeChip);
-        chipGroup.addView(chip, index);
+        chipGroup.addView(chip);
+    }
+
+    // ================= DATE PICKER =================
+    private void showDatePicker(EditText editText) {
+
+        Calendar c = Calendar.getInstance();
+
+        DatePickerDialog dialog = new DatePickerDialog(this,
+                (view, year, month, day) -> {
+                    String date = day + "/" + (month + 1) + "/" + year;
+                    editText.setText(date);
+                },
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH));
+
+        dialog.show();
     }
 }

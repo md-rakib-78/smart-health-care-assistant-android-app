@@ -32,17 +32,27 @@
             android:id="@+id/logo"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:alpha="0.9"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/user_box_sec">
+            android:background="@drawable/user_box_sec_two">
 
-            <ImageView
-                android:id="@+id/profilePic"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/user" />
+                android:layout_height="match_parent">
+
+                <!-- Profile Image -->
+                <ImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user"
+                    android:background="@drawable/user_box_sec_two"
+                    android:clipToOutline="true"/>
+
+            </FrameLayout>
+
+
         </LinearLayout>
 
         <TextView
@@ -52,7 +62,7 @@
             android:layout_below="@+id/logo"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:text="Md. Rakibul Islam"
+            android:text="-"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
@@ -115,9 +125,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="24"
+                android:text="-"
                 android:layout_marginBottom="2dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -144,9 +155,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="68kg"
+                android:text="-"
                 android:layout_marginBottom="2dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -172,9 +184,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B+"
+                android:text="-"
                 android:layout_marginBottom="2dp"
                 android:textColor="#FF0000"
                 android:textSize="20sp"
@@ -255,9 +268,10 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/dateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7 Feb 2004"
+                android:text="-"
                 android:textStyle="bold"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -278,9 +292,10 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="male"
+                android:text="-"
                 android:textStyle="bold"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -301,9 +316,10 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="172cm"
+                android:text="-"
                 android:textStyle="bold"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -339,6 +355,7 @@
             android:layout_marginBottom="10dp">
 
             <Button
+                android:id="@+id/signOut"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="Sign Out"

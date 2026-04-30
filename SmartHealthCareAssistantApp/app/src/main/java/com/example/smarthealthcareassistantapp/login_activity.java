@@ -73,11 +73,20 @@ public class login_activity extends AppCompatActivity {
                 return;
             }
 
+            // Show loading
             progressBar.setVisibility(View.VISIBLE);
+            login.setText(""); // hide text
+            login.setEnabled(false);
+
+
 
             mAuth.signInWithEmailAndPassword(Email,Password).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
+
+                    // Hide loading (after task done)
                     progressBar.setVisibility(View.GONE);
+                    login.setText("Sign In");
+                    login.setEnabled(true);
 
                         startActivity(new Intent(login_activity.this, home_dashboard_activity.class));
                         finish();

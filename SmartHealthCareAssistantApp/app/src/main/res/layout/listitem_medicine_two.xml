@@ -38,7 +38,6 @@
                 android:text="2:00 AM"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 app:chipBackgroundColor="@android:color/transparent"
-                app:textStyle="bold"
                 app:chipStrokeColor="@color/gray"
                 app:chipStrokeWidth="1dp"/>
         </com.google.android.material.chip.ChipGroup>

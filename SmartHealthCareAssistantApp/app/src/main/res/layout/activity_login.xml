@@ -112,24 +112,41 @@
         android:textSize="13sp"
         android:paddingEnd="0dp" />
 
-    <Button
-        android:id="@+id/signIn"
+    <FrameLayout
+        android:id="@+id/fram"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/forgotPass"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Sign In"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/signIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Sign In"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/prog"
+            android:visibility="gone"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:progressTint="@color/white"
+            android:indeterminateTint="@color/white"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signIn"
+        android:layout_below="@id/fram"
         android:layout_marginTop="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -199,14 +216,5 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/prog"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:progressTint="@color/black"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

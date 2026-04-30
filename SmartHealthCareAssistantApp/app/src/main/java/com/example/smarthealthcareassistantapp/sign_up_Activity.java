@@ -2,21 +2,20 @@ package com.example.smarthealthcareassistantapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseUser;
 
 import database.AppDatabase;
+import database.User;
 
 public class sign_up_Activity extends AppCompatActivity {
 
@@ -24,6 +23,7 @@ public class sign_up_Activity extends AppCompatActivity {
 
     private Button signUp;
 
+    private ProgressBar progressBar;
     private FirebaseAuth auth;
 
     @Override
@@ -36,8 +36,9 @@ public class sign_up_Activity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.pass);
         Cpassword = findViewById(R.id.Cpass);
-
         signUp = findViewById(R.id.signup);
+        progressBar = findViewById(R.id.prog);
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -47,6 +48,8 @@ public class sign_up_Activity extends AppCompatActivity {
             String mail = email.getText().toString();
             String pass = password.getText().toString();
             String Cpass = Cpassword.getText().toString();
+
+
 
             if (fname.isEmpty()) {
                 fullName.setError("Full name is required");
@@ -84,11 +87,23 @@ public class sign_up_Activity extends AppCompatActivity {
                 return;
             }
 
+            // Show loading
+            progressBar.setVisibility(View.VISIBLE);
+            signUp.setText(""); // hide text
+            signUp.setEnabled(false);
+
+
             // Call Firebase
             auth.createUserWithEmailAndPassword(mail, pass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+
+                    // Hide loading (after task done)
+                    progressBar.setVisibility(View.GONE);
+                    signUp.setText("Sign Up");
+                    signUp.setEnabled(true);
+
                     Toast.makeText(sign_up_Activity.this, "Registration Successful", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this, login_activity.class));
+                    startActivity(new Intent(this, home_dashboard_activity.class));
 
                     //Insert data into room database
                     AppDatabase db = AppDatabase.getDatabase(this);
@@ -96,7 +111,13 @@ public class sign_up_Activity extends AppCompatActivity {
                     String Mail = email.getText().toString();
                     String Pass = password.getText().toString();
 
-                    database.User user = new database.User();
+                    User user = db.userDao().getUser();
+
+                    if (user == null) {
+                        user = new User();
+                        user.userId = 1;
+                    }
+
                     user.name = Fname;
                     user.email = Mail;
                     user.password = Pass;

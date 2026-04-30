@@ -7,11 +7,10 @@ import androidx.room.PrimaryKey;
 public class Medicine {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int medicineId;
 
     public String MedicineName;
     public String startDate;
     public String endDate;
     public String frequency;
-    public String times;
 }
