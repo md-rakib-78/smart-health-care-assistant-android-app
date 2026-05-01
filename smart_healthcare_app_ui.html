@@ -1,0 +1,478 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito',sans-serif}
+  :root{
+    --green:#16a34a;--green-light:#dcfce7;--green-mid:#4ade80;
+    --blue:#2563eb;--blue-light:#dbeafe;
+    --red:#dc2626;--red-light:#fee2e2;
+    --amber:#d97706;--amber-light:#fef3c7;
+    --purple:#7c3aed;--purple-light:#ede9fe;
+    --teal:#0d9488;--teal-light:#ccfbf1;
+    --bg:#f0fdf4;--card:#ffffff;--text:#1a2e1a;--muted:#6b7280;
+    --border:#d1fae5;
+  }
+  .wrap{background:var(--bg);padding:24px 16px;min-height:100vh}
+  .section-title{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:28px 0 14px;padding-left:4px}
+  .section-title:first-child{margin-top:0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .phone{background:var(--card);border-radius:24px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 2px 12px rgba(22,163,74,.08);position:relative}
+  .phone-label{font-size:11px;font-weight:700;color:var(--green);background:var(--green-light);text-align:center;padding:6px 0;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+  .screen{padding:16px 14px}
+
+  /* Status bar */
+  .status-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .status-time{font-size:11px;font-weight:700;color:var(--text)}
+  .status-icons{display:flex;gap:4px;align-items:center}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--text)}
+  .bar{width:14px;height:6px;border-radius:2px;border:1.5px solid var(--text)}
+  .bar-fill{height:100%;background:var(--text);border-radius:1px;width:70%}
+
+  /* SPLASH */
+  .splash{background:linear-gradient(160deg,#16a34a,#0d9488);border-radius:20px;padding:30px 16px;text-align:center;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+  .splash-icon{width:64px;height:64px;background:rgba(255,255,255,.2);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+  .splash-icon svg{width:36px;height:36px}
+  .splash h1{font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:#fff}
+  .splash p{font-size:12px;color:rgba(255,255,255,.85);line-height:1.5}
+  .splash-btn{background:#fff;color:var(--green);font-size:12px;font-weight:700;border:none;border-radius:12px;padding:10px 28px;margin-top:8px;cursor:pointer}
+
+  /* LOGIN */
+  .login-header{text-align:center;margin-bottom:16px}
+  .login-header .app-logo{width:44px;height:44px;background:var(--green-light);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+  .login-header h2{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+  .login-header p{font-size:11px;color:var(--muted)}
+  .input-group{margin-bottom:10px}
+  .input-label{font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;display:block}
+  .fake-input{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:8px 10px;font-size:11px;color:var(--muted)}
+  .login-btn{background:linear-gradient(90deg,var(--green),var(--teal));color:#fff;font-size:12px;font-weight:700;border:none;border-radius:10px;padding:10px;width:100%;text-align:center;margin-top:4px}
+  .divider{display:flex;align-items:center;gap:8px;margin:10px 0;font-size:10px;color:var(--muted)}
+  .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+  .social-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .social-btn{border:1px solid var(--border);border-radius:10px;padding:8px;text-align:center;font-size:10px;font-weight:600;color:var(--text)}
+
+  /* HOME DASHBOARD */
+  .home-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+  .home-header h2{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+  .home-header p{font-size:11px;color:var(--muted)}
+  .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+  .health-card{background:linear-gradient(135deg,#16a34a,#0d9488);border-radius:16px;padding:14px;margin-bottom:12px;color:#fff}
+  .health-card h3{font-size:11px;opacity:.85;margin-bottom:4px}
+  .health-card .score{font-family:'Poppins',sans-serif;font-size:28px;font-weight:700}
+  .health-card .score span{font-size:12px;opacity:.75;font-weight:400}
+  .metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+  .metric{background:rgba(255,255,255,.15);border-radius:8px;padding:6px;text-align:center}
+  .metric .val{font-size:12px;font-weight:700}
+  .metric .lbl{font-size:9px;opacity:.8}
+  .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .qa{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:4px}
+  .qa-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+  .qa-label{font-size:10px;font-weight:600;color:var(--text)}
+  .qa-sub{font-size:9px;color:var(--muted)}
+  .section-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .section-hd h4{font-size:12px;font-weight:700;color:var(--text)}
+  .section-hd a{font-size:10px;color:var(--green);font-weight:600}
+  .reminder-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .ri-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .ri-info{flex:1}
+  .ri-name{font-size:11px;font-weight:700;color:var(--text)}
+  .ri-time{font-size:9px;color:var(--muted)}
+  .ri-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:6px}
+
+  /* PROFILE */
+  .profile-hero{background:linear-gradient(160deg,#16a34a,#0d9488);border-radius:16px;padding:16px;text-align:center;margin-bottom:12px;color:#fff}
+  .profile-avatar{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin:0 auto 8px}
+  .profile-name{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700}
+  .profile-sub{font-size:11px;opacity:.85}
+  .profile-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.2);border-radius:10px;margin-top:10px;overflow:hidden}
+  .ps{background:rgba(255,255,255,.1);padding:8px 4px;text-align:center}
+  .ps .val{font-size:13px;font-weight:700}
+  .ps .lbl{font-size:9px;opacity:.8}
+  .info-section{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px}
+  .info-row{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:1px solid var(--border)}
+  .info-row:last-child{border-bottom:none}
+  .info-key{font-size:11px;color:var(--muted)}
+  .info-val{font-size:11px;font-weight:600;color:var(--text)}
+
+  /* MEDICINE */
+  .add-med-btn{background:linear-gradient(90deg,var(--green),var(--teal));color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:11px;font-weight:700;width:100%;text-align:center;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .med-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+  .med-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .med-name{font-size:12px;font-weight:700;color:var(--text)}
+  .med-dose{font-size:10px;color:var(--muted)}
+  .med-times{display:flex;gap:6px;flex-wrap:wrap}
+  .time-chip{background:var(--green-light);color:var(--green);font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px}
+  .med-progress{margin-top:8px}
+  .progress-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-mid));border-radius:2px}
+  .prog-label{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:3px}
+
+  /* APPOINTMENTS */
+  .apt-month{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .apt-month span{font-size:13px;font-weight:700;color:var(--text);font-family:'Poppins',sans-serif}
+  .apt-month button{background:var(--green-light);border:none;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--green)}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:12px}
+  .cal-day{font-size:9px;font-weight:700;color:var(--muted);text-align:center;padding:3px 0}
+  .cal-date{font-size:10px;text-align:center;padding:5px 2px;border-radius:8px;color:var(--text);font-weight:500}
+  .cal-date.today{background:var(--green);color:#fff;font-weight:700}
+  .cal-date.has-apt{position:relative}
+  .cal-date.has-apt::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--amber)}
+  .cal-date.muted{color:#d1d5db}
+  .apt-list-title{font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px}
+  .apt-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+  .apt-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .apt-info .doc{font-size:11px;font-weight:700;color:var(--text)}
+  .apt-info .spec{font-size:10px;color:var(--muted)}
+  .apt-info .when{font-size:10px;color:var(--green);font-weight:600;margin-top:2px}
+
+  /* SYMPTOM CHECKER */
+  .symptom-intro{background:var(--amber-light);border:1px solid #fde68a;border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:var(--amber);font-weight:600;line-height:1.5}
+  .symptom-search{background:#f9fafb;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .symptom-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .stag{border:1.5px solid var(--border);border-radius:20px;padding:5px 10px;font-size:10px;font-weight:600;color:var(--text);background:var(--card)}
+  .stag.active{background:var(--green-light);border-color:var(--green);color:var(--green)}
+  .result-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+  .result-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .result-name{font-size:12px;font-weight:700;color:var(--text)}
+  .severity{font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px}
+  .sev-low{background:var(--green-light);color:var(--green)}
+  .sev-med{background:var(--amber-light);color:var(--amber)}
+  .sev-high{background:var(--red-light);color:var(--red)}
+  .result-desc{font-size:10px;color:var(--muted);line-height:1.5}
+
+  /* HEALTH TIPS */
+  .tip-featured{border-radius:16px;overflow:hidden;margin-bottom:10px;position:relative;min-height:100px;background:linear-gradient(135deg,#16a34a,#0d9488);padding:14px 12px;color:#fff}
+  .tip-tag{font-size:9px;font-weight:700;background:rgba(255,255,255,.2);border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:6px;letter-spacing:.05em}
+  .tip-featured h3{font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;line-height:1.3;margin-bottom:4px}
+  .tip-featured p{font-size:10px;opacity:.85;line-height:1.5}
+  .tip-mini{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .tip-mini-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+  .tip-mini-info .title{font-size:11px;font-weight:700;color:var(--text)}
+  .tip-mini-info .desc{font-size:10px;color:var(--muted);line-height:1.4;margin-top:2px}
+
+  /* EMERGENCY */
+  .emer-header{background:linear-gradient(135deg,var(--red),#b91c1c);border-radius:14px;padding:12px;text-align:center;margin-bottom:12px;color:#fff}
+  .emer-header h3{font-family:'Poppins',sans-serif;font-size:13px;font-weight:700}
+  .emer-header p{font-size:10px;opacity:.85;margin-top:2px}
+  .emer-sos{background:#fff;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;margin:12px auto 0;box-shadow:0 0 0 8px rgba(255,255,255,.2)}
+  .emer-sos span{font-size:16px;font-weight:800;color:var(--red)}
+  .contact-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .contact-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+  .contact-info .name{font-size:11px;font-weight:700;color:var(--text)}
+  .contact-info .rel{font-size:10px;color:var(--muted)}
+  .call-btn{margin-left:auto;background:var(--green-light);border:none;border-radius:10px;padding:6px 12px;font-size:10px;font-weight:700;color:var(--green)}
+  .emer-services{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .eserv{border-radius:12px;padding:10px;text-align:center}
+  .eserv .num{font-family:'Poppins',sans-serif;font-size:16px;font-weight:800}
+  .eserv .lbl{font-size:9px;font-weight:600;margin-top:2px}
+
+  /* BOTTOM NAV */
+  .bnav{display:flex;justify-content:space-around;padding:10px 0 6px;border-top:1px solid var(--border);background:var(--card);margin:8px -14px -16px}
+  .bn{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .bn-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+  .bn-label{font-size:8px;color:var(--muted);font-weight:600}
+  .bn.active .bn-label{color:var(--green)}
+</style>
+
+<div class="wrap">
+
+<div class="section-title">Splash & Onboarding</div>
+<div class="grid">
+  <!-- SPLASH -->
+  <div class="phone">
+    <div class="phone-label">Splash Screen</div>
+    <div class="screen" style="padding:12px">
+      <div class="splash">
+        <div class="splash-icon">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 6C11.373 6 6 11.373 6 18s5.373 12 12 12 12-5.373 12-12S24.627 6 18 6z" fill="rgba(255,255,255,0.3)"/><path d="M18 10v8l5 3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="M13 18h4v-4M18 14v4h4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h1>HealthCare<br>Assistant</h1>
+        <p>Your personal health companion.<br>Stay on track, stay healthy.</p>
+        <button class="splash-btn">Get Started</button>
+        <p style="font-size:10px;color:rgba(255,255,255,.6);margin-top:4px">Already have an account? Sign in</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="phone">
+    <div class="phone-label">Login</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div class="login-header">
+        <div class="app-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#16a34a" opacity=".2"/><path d="M12 7v5l3.5 2" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your health account</p>
+      </div>
+      <div class="input-group"><span class="input-label">Email address</span><div class="fake-input">rakib@example.com</div></div>
+      <div class="input-group"><span class="input-label">Password</span><div class="fake-input">••••••••</div></div>
+      <p style="font-size:10px;color:var(--green);font-weight:600;text-align:right;margin-bottom:10px">Forgot password?</p>
+      <div class="login-btn">Sign In</div>
+      <div class="divider">or continue with</div>
+      <div class="social-btns">
+        <div class="social-btn">G Google</div>
+        <div class="social-btn">f Facebook</div>
+      </div>
+      <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:10px">Don't have an account? <span style="color:var(--green);font-weight:700">Sign Up</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Main Activities</div>
+<div class="grid">
+  <!-- HOME DASHBOARD -->
+  <div class="phone">
+    <div class="phone-label">Home Dashboard</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div class="home-header">
+        <div><p style="font-size:10px;color:var(--muted)">Good morning,</p><h2>Rakibul Islam 👋</h2></div>
+        <div class="avatar">RI</div>
+      </div>
+      <div class="health-card">
+        <h3>Health Score Today</h3>
+        <div class="score">82 <span>/ 100</span></div>
+        <div class="metrics">
+          <div class="metric"><div class="val">98°</div><div class="lbl">Body Temp</div></div>
+          <div class="metric"><div class="val">72</div><div class="lbl">Heart Rate</div></div>
+          <div class="metric"><div class="val">120/80</div><div class="lbl">BP</div></div>
+        </div>
+      </div>
+      <div class="quick-actions">
+        <div class="qa"><div class="qa-icon" style="background:var(--blue-light)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div><div class="qa-label">Medicines</div><div class="qa-sub">3 due today</div></div>
+        <div class="qa"><div class="qa-icon" style="background:var(--purple-light)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#7c3aed" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/></svg></div><div class="qa-label">Appointments</div><div class="qa-sub">1 upcoming</div></div>
+        <div class="qa"><div class="qa-icon" style="background:var(--amber-light)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d97706" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#d97706" stroke-width="2" stroke-linecap="round"/></svg></div><div class="qa-label">Symptom Check</div><div class="qa-sub">Quick check</div></div>
+        <div class="qa"><div class="qa-icon" style="background:var(--red-light)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 0112 19a2 2 0 01-2.18-2L9.61 14M8 21H5a2 2 0 01-2-2v-3a2 2 0 012-2h3" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/><path d="M16.5 3.5a9.9 9.9 0 010 17" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/></svg></div><div class="qa-label">Emergency</div><div class="qa-sub">SOS contacts</div></div>
+      </div>
+      <div class="section-hd"><h4>Today's Reminders</h4><a>See all</a></div>
+      <div class="reminder-item"><div class="ri-dot" style="background:var(--blue)"></div><div class="ri-info"><div class="ri-name">Paracetamol 500mg</div><div class="ri-time">8:00 AM — Taken</div></div><div class="ri-badge" style="background:var(--green-light);color:var(--green)">Done</div></div>
+      <div class="reminder-item"><div class="ri-dot" style="background:var(--amber)"></div><div class="ri-info"><div class="ri-name">Vitamin D3</div><div class="ri-time">1:00 PM — Due soon</div></div><div class="ri-badge" style="background:var(--amber-light);color:var(--amber)">Soon</div></div>
+      <div class="bnav">
+        <div class="bn active"><div class="bn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3l9 9M5 10v9a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-9" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/></svg></div><span class="bn-label" style="color:var(--green)">Home</span></div>
+        <div class="bn"><div class="bn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg></div><span class="bn-label">Meds</span></div>
+        <div class="bn"><div class="bn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#9ca3af" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg></div><span class="bn-label">Schedule</span></div>
+        <div class="bn"><div class="bn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#9ca3af" stroke-width="2"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg></div><span class="bn-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER PROFILE -->
+  <div class="phone">
+    <div class="phone-label">User Profile</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div class="profile-hero">
+        <div class="profile-avatar">RI</div>
+        <div class="profile-name">Md. Rakibul Islam</div>
+        <div class="profile-sub">Member since March 2026</div>
+        <div class="profile-stats">
+          <div class="ps"><div class="val">24</div><div class="lbl">Age</div></div>
+          <div class="ps"><div class="val">68kg</div><div class="lbl">Weight</div></div>
+          <div class="ps"><div class="val">B+</div><div class="lbl">Blood</div></div>
+        </div>
+      </div>
+      <div class="info-section">
+        <div class="info-row"><span class="info-key">Full Name</span><span class="info-val">Md. Rakibul Islam</span></div>
+        <div class="info-row"><span class="info-key">Date of Birth</span><span class="info-val">15 Jan 2002</span></div>
+        <div class="info-row"><span class="info-key">Gender</span><span class="info-val">Male</span></div>
+        <div class="info-row"><span class="info-key">Height</span><span class="info-val">172 cm</span></div>
+        <div class="info-row"><span class="info-key">Weight</span><span class="info-val">68 kg</span></div>
+        <div class="info-row"><span class="info-key">Blood Group</span><span class="info-val" style="color:var(--red);font-weight:700">B+</span></div>
+        <div class="info-row"><span class="info-key">Allergies</span><span class="info-val">Penicillin</span></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div class="info-row"><span class="info-key">Notifications</span><div style="width:28px;height:16px;background:var(--green);border-radius:10px;display:flex;align-items:center;padding:2px 3px"><div style="width:12px;height:12px;background:#fff;border-radius:50%;margin-left:auto"></div></div></div>
+        <div class="info-row"><span class="info-key">Dark Mode</span><div style="width:28px;height:16px;background:#e5e7eb;border-radius:10px;display:flex;align-items:center;padding:2px 3px"><div style="width:12px;height:12px;background:#fff;border-radius:50%"></div></div></div>
+        <div class="info-row"><span class="info-key" style="color:var(--red)">Sign Out</span><span class="info-val">›</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Medicine & Appointments</div>
+<div class="grid">
+  <!-- MEDICINE REMINDER -->
+  <div class="phone">
+    <div class="phone-label">Medicine Reminder</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)">My Medicines</h2><span style="font-size:11px;color:var(--muted)">3 active</span></div>
+      <div class="add-med-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg> Add New Medicine</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <div style="background:var(--green);color:#fff;border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700">All</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:600;color:var(--muted)">Morning</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:600;color:var(--muted)">Evening</div>
+      </div>
+      <div class="med-card">
+        <div class="med-top"><div><div class="med-name">Paracetamol</div><div class="med-dose">500mg · 1 tablet</div></div><span style="background:var(--green-light);color:var(--green);font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px">Active</span></div>
+        <div class="med-times"><span class="time-chip">8:00 AM</span><span class="time-chip">2:00 PM</span><span class="time-chip">9:00 PM</span></div>
+        <div class="med-progress"><div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div><div class="prog-label"><span>1 of 3 taken</span><span>33%</span></div></div>
+      </div>
+      <div class="med-card">
+        <div class="med-top"><div><div class="med-name">Vitamin D3</div><div class="med-dose">1000IU · 1 capsule</div></div><span style="background:var(--amber-light);color:var(--amber);font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px">Due</span></div>
+        <div class="med-times"><span class="time-chip">1:00 PM</span></div>
+        <div class="med-progress"><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><div class="prog-label"><span>0 of 1 taken</span><span>0%</span></div></div>
+      </div>
+      <div class="med-card">
+        <div class="med-top"><div><div class="med-name">Omeprazole</div><div class="med-dose">20mg · 1 tablet</div></div><span style="background:var(--green-light);color:var(--green);font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px">Active</span></div>
+        <div class="med-times"><span class="time-chip">8:00 AM</span></div>
+        <div class="med-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div><div class="prog-label"><span>1 of 1 taken</span><span>100%</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPOINTMENTS -->
+  <div class="phone">
+    <div class="phone-label">Appointment Scheduler</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)">Appointments</h2><div style="background:var(--green);border:none;border-radius:10px;padding:6px 10px;font-size:11px;font-weight:700;color:#fff">+ New</div></div>
+      <div class="apt-month"><span>March 2026</span><div style="display:flex;gap:4px"><button style="background:var(--green-light);border:none;border-radius:6px;padding:3px 8px;font-size:12px;color:var(--green);font-weight:700">‹</button><button style="background:var(--green-light);border:none;border-radius:6px;padding:3px 8px;font-size:12px;color:var(--green);font-weight:700">›</button></div></div>
+      <div class="cal">
+        <div class="cal-day">Su</div><div class="cal-day">Mo</div><div class="cal-day">Tu</div><div class="cal-day">We</div><div class="cal-day">Th</div><div class="cal-day">Fr</div><div class="cal-day">Sa</div>
+        <div class="cal-date muted">23</div><div class="cal-date muted">24</div><div class="cal-date muted">25</div><div class="cal-date muted">26</div><div class="cal-date muted">27</div><div class="cal-date muted">28</div><div class="cal-date">1</div>
+        <div class="cal-date">2</div><div class="cal-date">3</div><div class="cal-date has-apt">4</div><div class="cal-date">5</div><div class="cal-date">6</div><div class="cal-date">7</div><div class="cal-date">8</div>
+        <div class="cal-date">9</div><div class="cal-date">10</div><div class="cal-date">11</div><div class="cal-date has-apt">12</div><div class="cal-date">13</div><div class="cal-date">14</div><div class="cal-date">15</div>
+        <div class="cal-date">16</div><div class="cal-date">17</div><div class="cal-date">18</div><div class="cal-date">19</div><div class="cal-date">20</div><div class="cal-date">21</div><div class="cal-date">22</div>
+        <div class="cal-date">23</div><div class="cal-date">24</div><div class="cal-date">25</div><div class="cal-date">26</div><div class="cal-date today">27</div><div class="cal-date">28</div><div class="cal-date">29</div>
+        <div class="cal-date">30</div><div class="cal-date">31</div>
+      </div>
+      <div class="apt-list-title">Upcoming Appointments</div>
+      <div class="apt-card">
+        <div class="apt-icon" style="background:var(--blue-light)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#2563eb" stroke-width="2"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="apt-info"><div class="doc">Dr. Sarah Ahmed</div><div class="spec">General Physician</div><div class="when">April 4 · 10:30 AM</div></div>
+        <div style="font-size:9px;font-weight:700;background:var(--blue-light);color:var(--blue);padding:3px 8px;border-radius:6px">Confirmed</div>
+      </div>
+      <div class="apt-card">
+        <div class="apt-icon" style="background:var(--purple-light)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#7c3aed" stroke-width="2"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="apt-info"><div class="doc">Dr. Kamal Hossain</div><div class="spec">Cardiologist</div><div class="when">April 12 · 2:00 PM</div></div>
+        <div style="font-size:9px;font-weight:700;background:var(--amber-light);color:var(--amber);padding:3px 8px;border-radius:6px">Pending</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Health Tools</div>
+<div class="grid">
+  <!-- SYMPTOM CHECKER -->
+  <div class="phone">
+    <div class="phone-label">Symptom Checker</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div style="margin-bottom:12px"><h2 style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)">Symptom Checker</h2><p style="font-size:11px;color:var(--muted);margin-top:2px">Select your symptoms below</p></div>
+      <div class="symptom-intro">⚠ This tool provides general suggestions only. Always consult a real doctor for medical advice.</div>
+      <div class="symptom-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#9ca3af" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg><span>Search symptoms...</span></div>
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px">Common symptoms</div>
+      <div class="symptom-tags">
+        <div class="stag active">Headache</div>
+        <div class="stag active">Fever</div>
+        <div class="stag">Cough</div>
+        <div class="stag">Fatigue</div>
+        <div class="stag">Nausea</div>
+        <div class="stag">Sore throat</div>
+        <div class="stag">Body ache</div>
+        <div class="stag">Runny nose</div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px">Possible conditions</div>
+      <div class="result-card">
+        <div class="result-top"><div class="result-name">Common Cold</div><div class="severity sev-low">Mild</div></div>
+        <div class="result-desc">Viral infection causing headache, fever, and general discomfort. Usually resolves in 7–10 days with rest and hydration.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-top"><div class="result-name">Influenza</div><div class="severity sev-med">Moderate</div></div>
+        <div class="result-desc">Flu symptoms are typically more intense than a cold. Consider antiviral medication if caught early. See a doctor.</div>
+      </div>
+      <div style="background:var(--green);color:#fff;border-radius:12px;padding:10px;text-align:center;font-size:12px;font-weight:700;margin-top:8px">Get Full Report</div>
+    </div>
+  </div>
+
+  <!-- HEALTH TIPS -->
+  <div class="phone">
+    <div class="phone-label">Health Tips</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div style="margin-bottom:12px"><h2 style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)">Health Tips</h2><p style="font-size:11px;color:var(--muted);margin-top:2px">Daily wellness advice for you</p></div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;overflow-x:auto">
+        <div style="background:var(--green);color:#fff;border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;white-space:nowrap">All</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap">Nutrition</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap">Exercise</div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap">Sleep</div>
+      </div>
+      <div class="tip-featured">
+        <div class="tip-tag">TIP OF THE DAY</div>
+        <h3>Stay Hydrated Throughout the Day</h3>
+        <p>Drinking 8 glasses of water daily improves energy, skin health, and helps your kidneys function optimally.</p>
+      </div>
+      <div class="tip-mini"><div class="tip-mini-icon" style="background:var(--amber-light);font-size:16px">🥗</div><div class="tip-mini-info"><div class="title">Eat balanced meals</div><div class="desc">Include protein, fiber, and healthy fats in every meal for sustained energy.</div></div></div>
+      <div class="tip-mini"><div class="tip-mini-icon" style="background:var(--blue-light);font-size:16px">🏃</div><div class="tip-mini-info"><div class="title">Walk 10,000 steps</div><div class="desc">Daily walking reduces risk of heart disease and improves mood significantly.</div></div></div>
+      <div class="tip-mini"><div class="tip-mini-icon" style="background:var(--purple-light);font-size:16px">😴</div><div class="tip-mini-info"><div class="title">Sleep 7–8 hours</div><div class="desc">Consistent sleep boosts immunity and cognitive performance each day.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Emergency & Add Medicine</div>
+<div class="grid">
+  <!-- EMERGENCY -->
+  <div class="phone">
+    <div class="phone-label">Emergency Contact</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div class="emer-header">
+        <h3>Emergency Contacts</h3>
+        <p>Tap to call immediately in emergencies</p>
+        <div class="emer-sos"><span>SOS</span></div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px">My Contacts</div>
+      <div class="contact-card">
+        <div class="contact-avatar" style="background:var(--green)">MA</div>
+        <div class="contact-info"><div class="name">Md. Alamin</div><div class="rel">Father</div></div>
+        <button class="call-btn">📞 Call</button>
+      </div>
+      <div class="contact-card">
+        <div class="contact-avatar" style="background:var(--blue)">RN</div>
+        <div class="contact-info"><div class="name">Rina Begum</div><div class="rel">Mother</div></div>
+        <button class="call-btn">📞 Call</button>
+      </div>
+      <div class="contact-card">
+        <div class="contact-avatar" style="background:var(--purple)">SK</div>
+        <div class="contact-info"><div class="name">Dr. S. Karim</div><div class="rel">Family Doctor</div></div>
+        <button class="call-btn">📞 Call</button>
+      </div>
+      <div style="border:1.5px dashed var(--border);border-radius:12px;padding:10px;text-align:center;font-size:11px;font-weight:600;color:var(--green);margin-top:4px">+ Add Emergency Contact</div>
+      <div class="emer-services">
+        <div class="eserv" style="background:var(--red-light)"><div class="num" style="color:var(--red)">999</div><div class="lbl" style="color:var(--red)">Police / Ambulance</div></div>
+        <div class="eserv" style="background:var(--blue-light)"><div class="num" style="color:var(--blue)">16712</div><div class="lbl" style="color:var(--blue)">Health Helpline</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD MEDICINE FORM -->
+  <div class="phone">
+    <div class="phone-label">Add Medicine</div>
+    <div class="screen">
+      <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><div class="dot"></div><div class="dot"></div><div class="bar"><div class="bar-fill"></div></div></div></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="width:28px;height:28px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2 style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--text)">Add Medicine</h2>
+      </div>
+      <div class="input-group"><span class="input-label">Medicine Name</span><div class="fake-input">e.g. Paracetamol</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div class="input-group" style="margin:0"><span class="input-label">Dosage</span><div class="fake-input">500mg</div></div>
+        <div class="input-group" style="margin:0"><span class="input-label">Frequency</span><div class="fake-input">3x daily</div></div>
+      </div>
+      <div class="input-group"><span class="input-label">Start Date</span><div class="fake-input">17 March 2026</div></div>
+      <div class="input-group"><span class="input-label">End Date</span><div class="fake-input">24 March 2026</div></div>
+      <div style="margin-bottom:10px"><span class="input-label" style="font-size:11px;font-weight:600;color:var(--text);display:block;margin-bottom:6px">Reminder Times</span>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <div style="background:var(--green-light);color:var(--green);border:1px solid var(--green);border-radius:20px;padding:5px 10px;font-size:10px;font-weight:700">8:00 AM ✕</div>
+          <div style="background:var(--green-light);color:var(--green);border:1px solid var(--green);border-radius:20px;padding:5px 10px;font-size:10px;font-weight:700">2:00 PM ✕</div>
+          <div style="border:1.5px dashed var(--border);border-radius:20px;padding:5px 10px;font-size:10px;font-weight:600;color:var(--muted)">+ Add time</div>
+        </div>
+      </div>
+      <div class="input-group"><span class="input-label">Notes (optional)</span><div class="fake-input" style="min-height:40px">Take after meal...</div></div>
+      <div style="background:linear-gradient(90deg,var(--green),var(--teal));color:#fff;border-radius:12px;padding:11px;text-align:center;font-size:12px;font-weight:700;margin-top:4px">Save Medicine</div>
+    </div>
+  </div>
+</div>
+
+</div>
