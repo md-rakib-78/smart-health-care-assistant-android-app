@@ -19,3 +19,17 @@ Nowadays, people are very busy in their daily life and often forget to take medi
 - Notification System: AlarmManager / Notification Manager
 - Documentation: LaTeX.
 - Version Control: Git and GitHub.
+
+## User Interface
+|  |  |
+|---|---|
+| 1. Splash View Group <br> ![](UserInterface/splash.jpeg) | 2. Login View Group <br> ![](UserInterface/login.jpeg) |
+| 3. Sign Up View Group <br> ![](UserInterface/sign_up.jpeg) | 4. Main View Group <br> ![](UserInterface/main_view.jpeg) |
+| 5. Profile View Group <br> ![](UserInterface/profile.jpeg) | 6. Edit Profile View Group <br> ![](UserInterface/edit_profile.jpeg) |
+| 7. Add Medicine View Group <br> ![](UserInterface/add_medicine.jpeg) | 8.  Notification <br> ![](UserInterface/notification.jpeg) |
+
+## Creator
+**Md Rakibul Islam**  
+BSc in Computer Science & Engineering  
+
+
