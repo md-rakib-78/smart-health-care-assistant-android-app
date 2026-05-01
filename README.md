@@ -1,4 +1,4 @@
-# Smart Health Care Assistant Android App (Using Java language).
+# Smart Health Care Assistant Android App (Ongoing).
 
 Nowadays, people are very busy in their daily life and often forget to take medicine on time or miss doctor appointments. Also, many people do not keep proper track of their health information. Because of this, small health issues can become serious problems. To solve this issue, I want to develop a Smart Health Care Assistant App for Android devices. This app will help users manage their daily health activities in an easy and organized way. It will work as a personal health assistant where users can store their basic health information, set medicine reminders, and manage doctor appointments. The main goal of this application is to make healthcare management simple, smart, and accessible for everyone.
 
